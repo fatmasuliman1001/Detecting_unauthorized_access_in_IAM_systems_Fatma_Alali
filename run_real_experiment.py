@@ -22,6 +22,9 @@ DATA SPLITS (important):
     epoch; it is not used for early stopping or model selection.
 """
 import sys, os, time, json
+# Always run from this script's own folder, so the relative paths below
+# (src/, data/, results/) work from any IDE or terminal location.
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, "src")
 import numpy as np
 import pandas as pd

@@ -18,7 +18,8 @@ import os
 import pandas as pd
 import streamlit as st
 
-RESULTS_DIR = "results"
+# Locate results/ relative to this file, so the dashboard works from any folder.
+RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
 FIG_DIR = os.path.join(RESULTS_DIR, "figures")
 
 st.set_page_config(page_title="IAM Unauthorized-Access Detection Dashboard", layout="wide")
