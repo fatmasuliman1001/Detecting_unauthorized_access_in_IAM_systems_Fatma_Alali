@@ -4,6 +4,45 @@ This is the runnable implementation of the methodology in **Chapter 3** of the t
 *"Predictive Analytics for Detecting Unauthorized Access in Identity and Access Management
 Systems."* **It has already been run, and its real output is what Chapters 4 and 5 report.**
 
+## Quick start (reproduce all results)
+
+Requires **Python 3.11** (the results were produced with Python 3.11.9; much newer Python versions
+may not support the pinned TensorFlow version). Takes about 5–10 minutes on a normal laptop CPU.
+
+**1. Get the code:** click the green **Code** button on this page → **Download ZIP**, then unzip it
+(or run `git clone` with this repository's URL).
+
+**2. Open a terminal inside the unzipped folder** and run:
+
+macOS / Linux:
+```bash
+python3.11 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python run_real_experiment.py
+```
+
+Windows (Command Prompt):
+```bat
+py -3.11 -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+python run_real_experiment.py
+```
+
+**3. Check the results:** the script regenerates `data/` (the two simulated datasets) and
+`results/` (Tables 4.1–4.5 as CSV, Figures 4.1–4.5 as PNG). They should match the files already
+in this repository, which are the exact values reported in Chapter 4 of the thesis.
+
+**4. (Optional) View the interactive dashboard:**
+```bash
+streamlit run dashboard.py
+```
+It opens in your browser at http://localhost:8501.
+
+The scripts can also be run from an IDE (PyCharm, VS Code, Cursor): open this folder, select the
+`venv` interpreter, and run `run_real_experiment.py`.
+
 ## Status: real results obtained, with a disclosed scope limitation
 
 Two things from the original proposal didn't hold up:
