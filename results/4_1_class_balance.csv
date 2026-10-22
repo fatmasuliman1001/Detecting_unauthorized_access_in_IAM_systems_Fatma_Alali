@@ -1,0 +1,3 @@
+dataset,n_events,n_threat_events,threat_ratio
+IAM-SynthSim Regime A,30000,300,0.01
+IAM-SynthSim Regime B,30000,300,0.01

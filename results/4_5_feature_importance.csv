@@ -1,0 +1,7 @@
+feature,mean_abs_shap
+geolocation_entropy,0.15542065729791668
+failure_rate,0.1377448593844987
+privilege_change,0.09018376682862313
+is_privileged_role,0.07194242365179104
+session_length,0.064571513439162
+login_velocity,0.0021669221108256242

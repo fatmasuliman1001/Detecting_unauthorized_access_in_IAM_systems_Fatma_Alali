@@ -1,0 +1,5 @@
+setting,model,accuracy,precision,recall,f1,auc_roc,false_positive_rate,false_negative_rate
+Train Regime A / Test Regime A (same),x,0.9978,0.8182,1.0,0.9,0.9994,0.0022,0.0
+Train Regime A / Test Regime B (cross),x,0.9386,0.1311,0.9133,0.2293,0.9677,0.0611,0.0867
+Train Regime B / Test Regime B (same),x,0.9913,0.5469,0.7778,0.6422,0.9808,0.0065,0.2222
+Train Regime B / Test Regime A (cross),x,0.9968,0.8317,0.8567,0.844,0.994,0.0018,0.1433

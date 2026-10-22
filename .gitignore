@@ -1,0 +1,7 @@
+venv/
+results_original/
+__pycache__/
+.DS_Store
+.ipynb_checkpoints/
+data/*.gz
+data/*.txt
