@@ -69,7 +69,6 @@ say this explicitly and interpret the results accordingly.
 ```
 iam_project/
 ├── run_real_experiment.py        ← the script that produced every number in Chapter 4
-├── IAM_Hybrid_Detection.ipynb    ← interactive/exploratory notebook version of the same pipeline
 ├── src/
 │   ├── data_loader.py            ← loads LANL Cyber1 (real) + IAM-SynthSim (custom simulator)
 │   ├── feature_engineering.py    ← common feature schema + LSTM sequence builder
@@ -126,8 +125,7 @@ python run_real_experiment.py
 ```
 
 This regenerates everything in `results/` from scratch (takes several minutes on CPU, mostly
-LSTM training). The notebook `IAM_Hybrid_Detection.ipynb` covers the same steps interactively,
-section-by-section, matching Chapter 4's structure.
+LSTM training).
 
 ## 4. How to get REAL LANL Cyber1 results (the essential next step — see Section 6.3)
 
@@ -136,7 +134,7 @@ section-by-section, matching Chapter 4's structure.
 1. On a machine **without** this sandbox's network restrictions, go to
    https://csr.lanl.gov/data/cyber1/ and download `auth.txt.gz` and `redteam.txt.gz`.
 2. Place both in `data/`.
-3. In `run_real_experiment.py` (or the notebook's Setup cell), replace the
+3. In `run_real_experiment.py`, replace the
    `dl.load_iam_synthsim(...)` calls with:
    ```python
    dl.load_lanl_cyber1(path="data/auth.txt.gz", redteam_path="data/redteam.txt.gz", n_rows=2_000_000)
