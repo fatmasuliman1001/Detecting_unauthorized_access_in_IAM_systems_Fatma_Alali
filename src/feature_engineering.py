@@ -1,9 +1,10 @@
 """
 feature_engineering.py
 =======================
-Turns the raw LANL and OakOak logs into a COMMON feature schema so that the
-same downstream model code can be trained/evaluated on either source, which
-is what RQ3 (cross-dataset generalization) requires.
+Turns raw IAM-SynthSim logs (and, optionally, LANL Cyber1 logs) into a
+COMMON feature schema so that the same downstream model code can be
+trained/evaluated on any source, including across the two simulation
+regimes used for RQ3 (cross-environment generalization).
 
 Common feature columns produced by `build_common_features()`:
     user_id, t (seconds), login_velocity, session_length,

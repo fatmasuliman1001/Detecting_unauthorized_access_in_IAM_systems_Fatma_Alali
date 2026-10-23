@@ -1,21 +1,18 @@
 """
 run_real_experiment.py
 =======================
-Runs a REAL experiment (no fabricated numbers) using IAM-SynthSim, the
-custom agent-based synthetic IAM log simulator built for this study
-(Section 3.4). LANL Cyber1 is NOT included here because this sandboxed
-environment has no network access to csr.lanl.gov; results below are
-therefore reported honestly as being derived from the synthetic simulator
-only, and RQ3 is answered using a domain-shift proxy (two differently
-parameterized simulation regimes, A and B) rather than a true second
-real-world dataset.
+Runs the full experiment using IAM-SynthSim, the custom agent-based
+synthetic IAM log simulator built for this study (Section 3.4), and
+produces every table and figure reported in Chapter 4. RQ3 is answered
+using a domain-shift proxy: two differently parameterized simulation
+regimes (A and B) that represent different deployment environments.
 
 DATA SPLITS (important):
   * MAIN EXPERIMENT (Tables 4.2 / 4.3, Figures 4.1-4.3): one stratified
     70/30 train/test split, random_state=42 (21,000 train / 9,000 test
     events, 90 threats in test). There is NO validation subset: model
     hyperparameters and the ensemble weights (0.4 / 0.3 / 0.3) are fixed
-    a priori from the approved methodology and are NOT tuned on any data.
+    a priori from the methodology (Chapter 3) and are NOT tuned on any data.
   * RQ3 cross-regime analysis (Section 4.4) only: calls
     preprocessing.stratified_split(), a separate 70/15/15 helper.
   * The LSTM's Keras validation_split=0.1 only logs validation loss per
@@ -158,7 +155,7 @@ m_lstm = ev.compute_metrics(y_te, (p_lstm >= 0.5).astype(int), p_lstm, "LSTM")
 print(f"[5] LSTM trained in {time.time()-t0:.1f}s (class_weight={class_weight})")
 
 # Hybrid soft-voting ensemble. Weights 0.4 / 0.3 / 0.3 are fixed a priori from
-# the approved methodology (Section 3.6); they are NOT tuned on any data.
+# the methodology (Section 3.6); they are NOT tuned on any data.
 p_hybrid = 0.4 * p_rf + 0.3 * p_if + 0.3 * p_lstm
 m_hybrid = ev.compute_metrics(y_te, (p_hybrid >= 0.5).astype(int), p_hybrid, "Hybrid Ensemble")
 

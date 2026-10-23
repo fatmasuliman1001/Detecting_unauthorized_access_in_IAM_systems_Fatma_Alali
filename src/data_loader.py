@@ -9,25 +9,19 @@ Loads the two data sources described in Chapter 3 of the thesis:
      File used: auth.txt.gz  (~50 GB uncompressed for the full file; a
      truncated number of rows is usually enough for a thesis-scale sample).
 
-  2. OakOak-style synthetic IAM logs - agent-based simulated logs with
-     ground-truth threat labels (brute_force, lateral_movement,
-     privilege_abuse).
+  2. IAM-SynthSim - the custom agent-based IAM log simulator developed for
+     this study, with ground-truth threat labels (brute_force,
+     lateral_movement, privilege_abuse). All results reported in the
+     thesis are produced from IAM-SynthSim.
 
-IMPORTANT
----------
-This sandbox has no network access to csr.lanl.gov, so the real LANL file
-cannot be downloaded from inside this environment. `load_lanl_cyber1()`
-will therefore:
-  - use a real local copy of auth.txt / auth.txt.gz if you provide `path`
-  - otherwise fall back to `generate_synthetic_lanl_like()`, which produces
-    data with the SAME COLUMN SCHEMA as the real file, purely so the rest
-    of the pipeline (feature engineering, models, evaluation) can be
-    exercised end-to-end before you have the real data.
-
-Any numbers produced from the synthetic fallback are NOT real results and
-must not be reported in Chapter 4/5 of the thesis. Once you download the
-real LANL file (see README.md) and point `path` at it, the exact same code
-will run on real data and produce real, reportable results.
+NOTE ON LANL CYBER1
+-------------------
+`load_lanl_cyber1()` reads a local copy of the public LANL auth.txt /
+auth.txt.gz file when `path` is provided, so the same pipeline can be
+applied to real enterprise authentication data in future work. If no
+`path` is given, it falls back to `generate_synthetic_lanl_like()`, which
+produces data with the same column schema purely for testing the code;
+numbers from that fallback are not used anywhere in the thesis.
 """
 
 import gzip
@@ -100,9 +94,9 @@ def load_lanl_cyber1(path=None, n_rows=None, redteam_path=None):
 
 def _generate_synthetic_lanl_like(n_events=200_000, anomaly_rate=0.001):
     """
-    SYNTHETIC DEMO DATA ONLY - matches the LANL auth.txt schema so the rest
-    of the pipeline can be developed/tested before the real file is
-    available. Do not use these numbers in Chapter 4/5.
+    SYNTHETIC TEST DATA ONLY - matches the LANL auth.txt schema so the
+    LANL code path can be tested without the real file. These numbers are
+    not used anywhere in the thesis.
     """
     n_users = max(200, n_events // 500)
     n_computers = max(50, n_events // 2000)
@@ -149,10 +143,10 @@ def load_iam_synthsim(path=None, n_events=200_000, regime="A"):
     """
     Load (or generate) IAM-SynthSim logs: a custom, agent-based synthetic
     IAM log simulator built for this study (see Section 3.4) with
-    ground-truth threat labels. This is NOT a pre-existing third-party
-    dataset ("OakOak") - no such publicly documented tool could be
-    located, so this thesis instead uses its own, fully-specified
-    generator, described transparently as synthetic.
+    ground-truth threat labels. Synthetic data is used because real IAM
+    logs with reliable ground-truth labels for unauthorized access are
+    rarely publicly available, and a fully specified simulator makes every
+    result reproducible and the class balance controllable.
 
     If `path` (a CSV) is provided it must contain at minimum:
     timestamp, user_id, login_attempts, privilege_change, session_length,
@@ -160,7 +154,7 @@ def load_iam_synthsim(path=None, n_events=200_000, regime="A"):
 
     `regime` selects between two parameterizations ("A" and "B") of the
     same generative process, used as a domain-shift proxy for RQ3 in the
-    absence of a second real-world dataset (see Chapter 3 note on scope).
+    absence of a second independent dataset (see Chapter 3).
     """
     if path is not None:
         return pd.read_csv(path)

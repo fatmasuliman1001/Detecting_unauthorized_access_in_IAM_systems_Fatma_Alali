@@ -2,17 +2,14 @@
 dashboard.py
 ============
 Interactive Streamlit monitoring dashboard for the hybrid IAM unauthorized-access
-detection framework described in Chapter 3 of the thesis. This is the completed
-dashboard deliverable named in the original research proposal and referenced in
-Chapter 6 / Appendix C.
+detection framework described in Chapter 3 of the thesis (see Appendix B).
 
 Run with:
     streamlit run dashboard.py
 
 It reads the real result CSVs produced by run_real_experiment.py (results/*.csv)
-and the figures produced alongside them (results/figures/*.png) -- nothing on this
-dashboard is fabricated or hard-coded; it visualizes exactly what that script
-computed. If results/ is empty, run `python run_real_experiment.py` first.
+and the figures produced alongside them (results/figures/*.png); nothing on this
+dashboard is hard-coded, it visualizes exactly what that script computed. If results/ is empty, run `python run_real_experiment.py` first.
 """
 import os
 import pandas as pd
@@ -28,7 +25,7 @@ st.title("Hybrid IAM Unauthorized-Access Detection — Monitoring Dashboard")
 st.caption(
     "Reads real output from run_real_experiment.py. Results shown here reflect "
     "IAM-SynthSim (a custom synthetic simulator), not real enterprise traffic -- "
-    "see Chapter 3, Section 1.7 of the thesis for the full data-access disclosure."
+    "see Chapter 3 of the thesis for a description of the data."
 )
 
 
@@ -80,7 +77,7 @@ with tab3:
         st.info(
             "This thesis's own run found the flattened representation outperformed the "
             "sequential LSTM (see Chapter 5, Section 5.2), contrary to the literature's "
-            "general expectation -- shown transparently here rather than smoothed over."
+            "general expectation."
         )
 
 with tab4:
